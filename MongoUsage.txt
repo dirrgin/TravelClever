@@ -1,0 +1,75 @@
+/*
+NOTE ⛄️
+In MongoDB constraints are typically enforced at the application level rather than through a predefined schema enforced 
+by the database engine.Meaning constraints are often handled by the application logic rather than relying on the database engine
+to enforce them.
+*/
+
+
+
+///How to connect to DB?
+// ⭐️ "models" directory has to be in the same directory as app.js is
+const start = async() =>{
+    //add "try and catch block"
+    await.mongoose.connect(CONNECTION);//to start it, next line has to launch the application
+    app.listen(PORT, () =>
+    {console.log("it works on " + PORT)});
+}
+start();//invoke 
+///REGISTER A USER
+const User = require('./models/UserAccount');
+//SAMPLE: an array of users
+const userData = [
+  {
+    nickname: 'john_doe',
+    email: 'john.doe@example.com',
+    password: 'securePassword123',
+    uCurrency: 'USD',
+    profilePhotoUrl: 'https://example.com/john_doe_profile.jpg',
+    groups: ['travel_group', 'work_project_group']
+  },
+  {
+    nickname: 'alice_smith',
+    email: 'alice.smith@example.com',
+    password: 'strongPass789',
+    uCurrency: 'EUR',
+    profilePhotoUrl: 'https://example.com/alice_smith_profile.jpg',
+    groups: ['work_project_group', 'tree_huggers_club']
+  },
+  {
+    nickname:'Apoi',
+    email:'greekgeek@email.com',
+    password:'greekgeek',
+    uCurrency: 'USD',
+    profilePhotoUrl: 'https://example.com/apoi_themadman_profile.jpg',
+    groups: ['travel_group', 'tree_huggers_club']
+ },
+ {
+    nickname: 'EternalFlame',
+    email: 'flame@elemental.com',
+    password: 'fiery123',
+    uCurrency: 'GBP',
+    profilePhotoUrl: 'https://example.com/eternal_flame.jpg',
+    groups: ['work_project_group', 'tree_huggers_club']
+ },
+ {
+    nickname: 'SylvanExplorer',
+    email: 'sylvan.explorer@example.com',
+    password: 'forestAdventurer456',
+    uCurrency: 'CAD',
+    profilePhotoUrl: 'https://example.com/sylvan_explorer.jpg',
+    groups: ['travel_group', 'tree_huggers_club']
+ }
+];
+
+
+/// protect sensitive cluster information
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config();//load environment variables from a .env file into process.env
+}
+const PORT=process.env.PORT || 3000;
+const CONNECTION = process.env.CONNECTION;
+require("./models/userAccountsSchema")
+//now you can create a user object to house information: nickname, email, password
+
+
