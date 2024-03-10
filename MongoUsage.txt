@@ -9,9 +9,14 @@ to enforce them.
 
 ///How to connect to DB?
 // ⭐️ "models" directory has to be in the same directory as app.js is
+//.env variable
+MONGODB_URI=mongodb+srv://CleverBusyBees:Shemon%2The(Strong)Minded@clevercluster.wsfcaja.mongodb.net/?retryWrites=true&w=majority&appName=CleverCluster 
+SAS_TOKEN=sv=2022-11-02&ss=bfqt&srt=o&sp=rwdlacupiytfx&se=2024-03-10T18:08:32Z&st=2024-03-10T10:08:32Z&spr=https&sig=whpRwLA%2BXeJKH1lgYKRLxkomugTPV2CxJ189ia7VrKs%3D
+ACCOUNT_NAME=travelclever1mage
+CONTAINER_NAME=profileimages
 const start = async() =>{
     //add "try and catch block"
-    await.mongoose.connect(CONNECTION);//to start it, next line has to launch the application
+    await.mongoose.connect(MONGODB_URI);//to start it, next line has to launch the application
     app.listen(PORT, () =>
     {console.log("it works on " + PORT)});
 }
