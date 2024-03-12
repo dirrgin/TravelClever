@@ -1,66 +1,94 @@
-const mongoose = require('mongoose');//import the mongoose library to interact with DB
+//import Realm from "realm";
 
-const userAccountsSchema = new mongoose.Schema({
-    nickname:{
-        type: String,
-        unique: true,
-        required: true //validation rule
-      },
-    email:{
-        type: String,
-        unique: true,
-        required: true
-      },
-    password:{
-        type: String,
-        required: true
-      },
-    uCurrency: String,
-    profilePhotoUrl: String,
-    groups: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }]//ref: establishes a relationship between the User model and the Group model.
-}, {collection:'UserAccount'}
-);
-module.exports = mongoose.model('UserAccount', userAccountsSchema);//schema "userProfileSchema" will be developed in our collection of users
-
-
-const transactionsSchema = new mongoose.Schema({
-  date: Date,
-  tPayer:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserAccount',
-    required: true
+export const GroupSchema = {
+  name: 'Group',
+  properties: {
+    _id: 'objectId',
+    active: 'bool',
+    gDebts: 'Group_gDebts[]',
+    groupCurrency: 'string',
+    members: 'UserAccount[]',
+    name: 'string',
+    totalSpent: 'double?',
+    transactions: 'string[]',
   },
-  tPayees:[{type:mongoose.Schema.Types.ObjectId, ref: 'UserAccount'}],
-  tPayment: {
-    amount: { type: Number, required: true },
-    currencyF: { type: String, required: true },
-  },
-  split: {
-        sType: Number,//1 - amount or 2 - %
-        ratio: [{type:Number}]
-        },
-  tDebtors: [{
-    debtorId: {type: mongoose.Schema.Types.ObjectId, ref: 'userAccount'},
-    howMuch: Number
-  }],
-}, {collection:'Transaction'});
-module.exports = mongoose.model('Transaction', transactionsSchema);
+  primaryKey: '_id',
+};
 
-const groupsSchema = new mongoose.Schema({
-  name: String,
-  active: Boolean,
-  groupCurrency: String,
-  members:[{type:mongoose.Schema.Types.ObjectId, ref:'UserAccount'}],
-  transactions:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Transaction'}],
-  gDebts:[{
-    gReceiver: {type: mongoose.Schema.Types.ObjectId, ref: 'UserAccount'},
-    gDebtor: {type: mongoose.Schema.Types.ObjectId, ref: 'UserAccount'},
-    gDebt: Number,
-    gCurrencyTo: String,
-    settledD: Boolean,
-    settleDate: Date
-}],
-  totalSpent: Number
-}, {collection: 'Group'}
-);
-module.exports = mongoose.model('Group', groupsSchema);
+export const Group_gDebtsSchema = {
+  name: 'Group_gDebts',
+  embedded: true,
+  properties: {
+    gCurrencyTo: 'string?',
+    gDebt: 'double?',
+    gDebtor: 'UserAccount',
+    gReceiver: 'UserAccount',
+    settledD: 'bool?',
+  },
+};
+
+export const ItemSchema = {
+  name: 'Item',
+  properties: {
+    _id: 'objectId',
+    isComplete: 'bool',
+    owner_id: 'string',
+    summary: 'string',
+  },
+  primaryKey: '_id',
+};
+
+export const TransactionSchema = {
+  name: 'Transaction',
+  properties: {
+    _id: 'objectId',
+    date: 'date?',
+    split: 'Transaction_split',
+    tDebtors: 'Transaction_tDebtors[]',
+    tPayee: 'UserAccount[]',
+    tPayer: 'UserAccount[]',
+    tPayment: 'Transaction_tPayment',
+  },
+  primaryKey: '_id',
+};
+
+export const Transaction_splitSchema = {
+  name: 'Transaction_split',
+  embedded: true,
+  properties: {
+    ratio: 'double[]',
+    sType: 'string?',
+  },
+};
+
+export const Transaction_tDebtorsSchema = {
+  name: 'Transaction_tDebtors',
+  embedded: true,
+  properties: {
+    debtorId: 'UserAccount',
+    howMuch: 'double?',
+  },
+};
+
+export const Transaction_tPaymentSchema = {
+  name: 'Transaction_tPayment',
+  embedded: true,
+  properties: {
+    amount: 'double?',
+    currencyF: 'string?',
+  },
+};
+
+export const UserAccountSchema = {
+  name: 'UserAccount',
+  properties: {
+    _id: 'objectId',
+    email: 'string',
+    groups: 'string[]',
+    nickname: 'string',
+    password: 'string',
+    profilePhotoUrl: 'string?',
+    uCurrency: 'string?',
+  },
+  primaryKey: '_id',
+};
