@@ -6,7 +6,10 @@ const Transaction_tDebtorsSchema = {
       howMuch: Number,
   };
 const transactionsSchema = new mongoose.Schema({
-    date: Date,
+    date: {
+          type: Date,
+          default: Date.now
+    },
     tPayer:{
       type: mongoose.Schema.Types.ObjectId,
       ref: "UserAccount",
@@ -19,8 +22,16 @@ const transactionsSchema = new mongoose.Schema({
       currencyF: { type: String, required: true },
     },
     split: {
-          sType: {type:Number, required: true,},//1 - amount or 2 - %
-          ratio: [{type:Number, required: true,}]
+          sType: {
+                  type:Number, 
+                  required: true,
+                  enum: [1, 2],//1 - amount, 2 - percent
+                  default: 1,
+      },
+          ratio: [
+                {type:Number, 
+                  required: true,}
+          ]
           },
     tDebtors: [Transaction_tDebtorsSchema],
   });
