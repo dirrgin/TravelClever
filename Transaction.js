@@ -11,7 +11,7 @@ const Transaction_tDebtorsSchema = {
 const transactionsSchema = new mongoose.Schema({
     date: {
           type: Date,
-          default: Date.now
+          default: ()=> Date.now
     },
     tPayer:{
       type: mongoose.Schema.Types.ObjectId,
