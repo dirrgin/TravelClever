@@ -6,10 +6,10 @@ const Group_gDebtsSchema = {
       gCurrencyTo: String,
       gDebt: Number,
       gDebtor: {
-        type: [mongoose.SchemaTypes.objectId],
+        type: [mongoose.Schema.Types.objectId],
         ref: "UserAccount", },
       gReceiver: {
-        type: mongoose.SchemaTypes.objectId,
+        type: mongoose.Schema.Types.objectId,
         ref: "UserAccount",
     },
       settledD: {type: Boolean, required: true,},
@@ -22,7 +22,7 @@ const  GroupSchema = new mongoose.Schema({
     },
     gDebts: [Group_gDebtsSchema],
     members: {
-        type: [mongoose.SchemaTypes.objectId],
+        type: [mongoose.Schema.Types.objectId],
         ref: "UserAccount",
         required: true
     },
@@ -35,7 +35,7 @@ const  GroupSchema = new mongoose.Schema({
         required: true,
     },
     transactions: {
-        type: [mongoose.SchemaTypes.objectId],
+        type: [mongoose.Schema.Types.objectId],
         ref: "Transaction",
     },
 });
