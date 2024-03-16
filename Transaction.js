@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 const UserAccount = require('./UserAccount.js');
 const Transaction_tDebtorsSchema = {
-      debtorId: {type: mongoose.Schema.Types.ObjectId, ref: 'UserAccount',
-      required: true,},
+      debtorId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'UserAccount',
+            required: true,
+      },
       howMuch: Number,
   };
 const transactionsSchema = new mongoose.Schema({
@@ -15,24 +18,22 @@ const transactionsSchema = new mongoose.Schema({
       ref: "UserAccount",
       required: true
     },
-    tPayees:[{type:mongoose.Schema.Types.ObjectId, 
-        ref: 'UserAccount'}],
+    tPayees:[
+          {type:mongoose.Schema.Types.ObjectId, 
+              ref: 'UserAccount'}
+    ],
     tPayment: {
       amount: { type: Number, required: true },
       currencyF: { type: String, required: true },
     },
     split: {
           sType: {
-                  type:Number, 
-                  required: true,
+                  type:Number,
                   enum: [1, 2],//1 - amount, 2 - percent
                   default: 1,
-      },
-          ratio: [
-                {type:Number, 
-                  required: true,}
-          ]
-          },
+                  },
+          ratio: [Number],
+    },
     tDebtors: [Transaction_tDebtorsSchema],
   });
   const Transaction = mongoose.model("Transaction", transactionsSchema);
