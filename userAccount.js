@@ -44,11 +44,11 @@ const userAccountsSchema = new mongoose.Schema({
   profilePhotoUrl: {type: String},
   uCurrency: String,
   groups: {
-    type: [mongoose.SchemaTypes.objectId],
+    type: [mongoose.Schema.Types.objectId],
     ref: "Group",
   },
   transactions: {
-    type: [mongoose.SchemaTypes.objectId],
+    type: [mongoose.Schema.Types.objectId],
     ref: "Transaction",
   }
 });
