@@ -16,11 +16,6 @@ const Group_gDebtsSchema = {
   };
 
 const  GroupSchema = new mongoose.Schema({
-    _id: {
-        type: objectId,
-        required: true,
-        unique: true,
-    },
     active: {
         type: Boolean,
         required: true,
